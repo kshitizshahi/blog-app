@@ -13,28 +13,28 @@ export default function Search() {
   const [data, setData] = useState<Blog[]>([]);
   const [tags, setTags] = useState([]);
 
-  const [isLoading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
+  const [tagLoading, setTagLoading] = useState(true);
 
   useEffect(() => {
     fetch(`/api/search?tag=${tagQuery}`)
       .then((res) => res.json())
       .then((data) => {
         setData(data);
-        setLoading(false);
+        setIsLoading(false);
       });
   }, []);
 
   useEffect(() => {
-    setLoading(true);
     fetch("/api/tags")
       .then((res) => res.json())
       .then((data) => {
         setTags(data);
-        setLoading(false);
+        setTagLoading(false);
       });
   }, []);
 
-  if (isLoading)
+  if (isLoading || tagLoading)
     return (
       <div className="min-h-[32rem]">
         <LoadingSkeleton />
