@@ -12,15 +12,17 @@ const SearchComponent = () => {
   const [message, setMessage] = useState("");
 
   useEffect(() => {
-    const controller = new AbortController();
+    // const controller = new AbortController();
     const timeOut = setTimeout(() => searchBlog(), 500);
+
+    // fetch(`/api/search?q=${query}`, {
+    //   signal: controller.signal,
+    // })
 
     const searchBlog = () => {
       if (query !== null && query !== "") {
         setIsLoading(true);
-        fetch(`/api/search?q=${query}`, {
-          signal: controller.signal,
-        })
+        fetch(`/api/search?q=${query}`)
           .then((res) => res.json())
           .then((data) => {
             setData(data.blogs);
@@ -36,7 +38,7 @@ const SearchComponent = () => {
     };
 
     return () => {
-      controller.abort();
+      // controller.abort();
       clearTimeout(timeOut);
     };
   }, [query]);
