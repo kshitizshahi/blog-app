@@ -34,7 +34,7 @@ export default function RootLayout({
         >
           <div className="container px-6 mx-auto">
             <NavBar />
-            <div className="container py-10">{children}</div>
+            <div className="py-8">{children}</div>
             <Footer />
           </div>
         </ThemeProvider>
